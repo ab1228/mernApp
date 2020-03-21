@@ -1,8 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const morgan = require('morgan');
 const path = require('path');
 
-const PORT = process.env.PORT || 3005;
+const PORT = process.env.PORT || 8070;
 
 var app = express();
+
+
+
+app.listen(PORT, () => {
+    console.log("App running on port " + PORT + "!");
+});
