@@ -2,12 +2,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const path = require('path');
-
-const PORT = process.env.PORT || 8070;
+const PORT = process.env.PORT || 8080;
 
 var app = express();
-
+const routes = require('./routes/apiroutes.js');
+///TO LOG HTTP REQUEST
 app.use(morgan('tiny'));
+///MIDDLEWARE
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 mongoose.connect("mongodb://localhost/mernApp", {
     useNewUrlParser: true, useUnifiedTopology: true
@@ -16,7 +19,9 @@ mongoose.connect("mongodb://localhost/mernApp", {
 mongoose.connection.on('connected', () => {
     console.log('mongoose is connected')
 })
-var db = require("./models");
+
+
+app.use('/api', routes);
 
 
 
