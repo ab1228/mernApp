@@ -11,7 +11,9 @@ class App extends React.Component {
   };
 
 
-
+  componentDidMount = () => {
+    this.getNotes();
+  }
 
   getNotes = () => {
     axios.get('/api')
@@ -67,7 +69,19 @@ class App extends React.Component {
     })
   };
 
+  displayNotes = (note) => {
+    if (!note.length) return null;
 
+    return note.map((note, index) => (
+      <div key={index} className='note-post'>
+        <h3>{note.title}</h3>
+        <p>{note.body}</p>
+      </div>
+
+    ));
+
+
+  };
 
 
   render() {
@@ -96,7 +110,9 @@ class App extends React.Component {
           <button className="badge badge-pill badge-warning">Submit</button>
 
         </form>
-
+        <div className='note-'>
+          {this.displayNotes(this.state.post)}
+        </div>
 
 
       </div>
