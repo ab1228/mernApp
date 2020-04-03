@@ -8,7 +8,6 @@ const PORT = process.env.PORT || 8080;
 
 const { URI } = process.env;
 
-
 var app = express();
 const routes = require('./routes/apiroutes.js');
 ///TO LOG HTTP REQUEST
@@ -16,8 +15,8 @@ app.use(morgan('tiny'));
 ///MIDDLEWARE
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-
-mongoose.connect(URI, {
+///GET MONGO READY FOR HEROKU
+mongoose.connect(process.env.MONGODB_URI || URI, {
     useNewUrlParser: true, useUnifiedTopology: true
 });
 /// TO CHECK IF MONGOOSE HAS BEEN CONNECTED
@@ -25,11 +24,14 @@ mongoose.connection.on('connected', () => {
     console.log('mongoose is connected')
 })
 
-
 app.use('/api', routes);
 
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
 
+}
 
 app.listen(PORT, () => {
     console.log("App running on port " + PORT + "!");
 });
+
