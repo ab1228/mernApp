@@ -1,3 +1,3 @@
-// module.exports = {
-//     Note: require("./Note")
-// };
+module.exports = {
+    Note: require("./Note")
+};
