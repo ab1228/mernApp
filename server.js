@@ -24,7 +24,7 @@ mongoose.connection.on('connected', () => {
     console.log('mongoose is connected')
 })
 
-app.use('/api', routes);
+app.use(routes);
 
 
 //SERVE STATIC ASSETS

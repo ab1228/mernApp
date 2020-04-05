@@ -16,7 +16,7 @@ class App extends React.Component {
   }
 
   getNotes = () => {
-    axios.get('/api')
+    axios.get('/')
       .then((response) => {
         const data = response.data
         this.setState({ post: data });
@@ -46,7 +46,7 @@ class App extends React.Component {
     console.log(payload);
 
     axios({
-      url: '/api/save',
+      url: '/save',
       method: 'POST',
       data: payload
     })
